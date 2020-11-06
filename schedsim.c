@@ -63,7 +63,7 @@ void findTurnAroundTime( ProcessType plist[], int n)
         plist[i].tat = plist[i].bt + plist[i].wt; 
 } 
   
-// Function to sort the Process acc. to priority
+// Function to sort the Process acc. to priority - DONE
 int my_comparer(const void *this, const void *that)
 { 
   
@@ -71,8 +71,11 @@ int my_comparer(const void *this, const void *that)
      * 1. Cast this and that into (ProcessType *)
      * 2. return 1 if this->pri < that->pri
      */ 
+    if(((ProcessType* ) this)->pri < ((ProcessType*)that)->pri){
+      return 1;
+    }
   
-    return 1;
+    return 0;
 } 
 
 //Function to calculate average time 
