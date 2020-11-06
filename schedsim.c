@@ -27,7 +27,7 @@ void findWaitingTimeRR(ProcessType plist[], int n,int quantum)
 } 
 
 // Function to find the waiting time for all  
-// processes 
+// processes - DONE
 void findWaitingTimeSJF(ProcessType plist[], int n)
 { 
       /*
@@ -41,6 +41,37 @@ void findWaitingTimeSJF(ProcessType plist[], int n)
          - Increment time lap by one.
  
      */
+
+     int i, p_counter = 0, current_time = 0;
+     int rem_bt[n];
+
+     for(i = 0; i < n; i++){
+       rem_bt[i] = plist[i].bt;
+     }
+
+     // find provess with lowest remaining time at every time step
+     while(p_counter < n)
+     {
+		    int minimum = 0;
+		    for(i = 1; i < n; i++)
+        {
+			    if (rem_bt[i] < rem_bt[minimum])
+          {
+				    minimum = i;
+			    }
+		    }
+  
+		
+		    rem_bt[minimum] -= 1;
+		    if (rem_bt[minimum] == 0)
+        {
+			    p_counter += 1;
+			    plist[minimum].wt = current_time + 1 - plist[minimum].bt;
+			    rem_bt[minimum] = 9999;
+		    }
+		
+		    current_time += 1;
+	    }
 } 
 
 // Function to find the waiting time for all  
