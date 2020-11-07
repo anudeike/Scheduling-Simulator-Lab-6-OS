@@ -7,14 +7,26 @@
 
 
 // Function to find the waiting time for all  
-// processes
-void findWaitingTimeRR(ProcessType plist[], int n,int quantum) 
+// processes - DONE
+void findWaitingTimeRR(ProcessType plist[], int n,int qu) 
 { 
-  /*
-     1. Create an array *rem_bt[]* to keep track of remaining burst time of processes. This array is initially a copy of *plist[].bt* (all processes burst times)
-     2. Store waiting times of processes in plist[].wt. Initialize this array as 0.
-     3. Initialize time : t = 0
-     4. Keep traversing the all processes while all processes are not done. Do following for i'th process if it is not done yet.
+  //1. Create an array *rem_bt[]* to keep track of remaining burst time of processes. This array is initially a copy of *plist[].bt* (all processes burst times)
+  // 2. Store waiting times of processes in plist[].wt. Initialize this array as 0.
+	// Initialize rem_bt to bt and wt to 0 for all processes. 
+
+  // keep track of time 
+	int rem_bt[n]; 
+	int i, current_time = 0; 
+  
+	for (i = 0; i < n; i++)
+  {
+		rem_bt[i] = plist[i].bt;
+   //  3. Initialize time : t = 0
+		plist[i].wt = 0; 
+	}
+	
+	int counter = 0; 
+   /* 4. Keep traversing the all processes while all processes are not done. Do following for i'th process if it is not done yet.
         - If rem_bt[i] > quantum
           (i)  t = t + quantum
           (ii) bt_rem[i] -= quantum;
@@ -22,8 +34,31 @@ void findWaitingTimeRR(ProcessType plist[], int n,int quantum)
           (i)  t = t + bt_rem[i];
           (ii) plist[i].wt = t - plist[i].bt
           (iii) bt_rem[i] = 0; // This process is over
-       
-   */
+          */
+	while(!counter)
+  {
+		counter = 1; 
+		for(i = 0; i < n; i++)
+    {
+			if (rem_bt[i] > 0)
+      {
+				counter = 0; 
+				// If rem_bt is greater than one quantum, work for one quantum and move on. 
+				if (rem_bt[i] > qu)
+        {
+					current_time += qu;
+					rem_bt[i] -= qu;
+				}
+				// Else, increment process_counter and set wt to curr_time - bt. 
+				else
+        {
+					current_time += rem_bt[i];
+					plist[i].wt = current_time - plist[i].bt;
+					rem_bt[i] = 0; 
+				}
+			}
+		}
+	}
 } 
 
 // Function to find the waiting time for all  
