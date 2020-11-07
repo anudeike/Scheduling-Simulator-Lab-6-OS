@@ -110,7 +110,7 @@ void findWaitingTimeSJF(ProcessType plist[], int n)
 } 
 
 // Function to find the waiting time for all  
-// processes 
+// processes - DONE
 void findWaitingTime(ProcessType plist[], int n)
 { 
     // waiting time for first process is 0, or the arrival time if not 
@@ -121,7 +121,7 @@ void findWaitingTime(ProcessType plist[], int n)
         plist[i].wt =  plist[i-1].bt + plist[i-1].wt; 
 } 
   
-// Function to calculate turn around time 
+// Function to calculate turn around time - DONE
 void findTurnAroundTime( ProcessType plist[], int n)
 { 
     // calculating turnaround time by adding bt[i] + wt[i] 
@@ -144,7 +144,7 @@ int my_comparer(const void *this, const void *that)
     return 0;
 } 
 
-//Function to calculate average time 
+//Function to calculate average time - DONE
 void findavgTimeFCFS( ProcessType plist[], int n) 
 { 
     //Function to find waiting time of all processes 
@@ -157,7 +157,7 @@ void findavgTimeFCFS( ProcessType plist[], int n)
     printf("\n*********\nFCFS\n");
 }
 
-//Function to calculate average time 
+//Function to calculate average time - DONE
 void findavgTimeSJF( ProcessType plist[], int n) 
 { 
     //Function to find waiting time of all processes 
@@ -170,7 +170,7 @@ void findavgTimeSJF( ProcessType plist[], int n)
     printf("\n*********\nSJF\n");
 }
 
-//Function to calculate average time 
+//Function to calculate average time - DONE
 void findavgTimeRR( ProcessType plist[], int n, int quantum) 
 { 
     //Function to find waiting time of all processes 
@@ -191,6 +191,15 @@ void findavgTimePriority( ProcessType plist[], int n)
     * 1- Sort the processes (i.e. plist[]), burst time and priority according to the priority.
     * 2- Now simply apply FCFS algorithm.
     */
+
+    qsort(plist, n, sizeof(ProcessType), my_comparer);
+
+    // fund waiting time for all the processes
+    findWaitingTime(plist, n);
+
+    // Function to find turn around time for all processes
+    findTurnAroundTime(plist, n);
+
   
     //Display processes along with all details 
     printf("\n*********\nPriority\n");
