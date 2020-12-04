@@ -1,10 +1,14 @@
-TASK1_SRC	:= schedsim.c util.c
-EXE		:= schedsim
+# lab-6-Scheduling/Makefile
+# Ikechukwu Anude
 
-all: $(EXE)
+schedsim: schedsim.o util.o
+	gcc schedsim.o util.o -o schedsim
 
-schedsim: $(TASK1_SRC)
-	gcc -Wall  -std=c99 -std=gnu99 -Werror -pedantic -g $^ -o $@
+schedsim.o: schedsim.c
+	gcc -c schedsim.c
+
+util.o: util.c util.h
+	gcc -c util.c
 
 clean:
-	rm -f $(EXE)
+	*.o
